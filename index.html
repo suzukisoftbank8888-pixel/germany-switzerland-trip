@@ -1,0 +1,859 @@
+<!DOCTYPE html>
+
+<html lang="ja">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1,viewport-fit=cover" name="viewport"/>
+<meta content="yes" name="apple-mobile-web-app-capable"/>
+<meta content="default" name="apple-mobile-web-app-status-bar-style"/>
+<title>Germany × Switzerland 2027 Travel Deck</title>
+<style>
+:root{--bg:#f7f3ea;--paper:#fffdf8;--ink:#1d2926;--muted:#66726d;--line:#ddd6c8;--blue:#1f6172;--green:#496e5e;--gold:#c28b39;--red:#9b4c3d;--dark:#18302d}
+*{box-sizing:border-box} html,body{margin:0;width:100%;height:100%;background:#111;color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Noto Sans JP","Helvetica Neue",Arial,sans-serif}
+body{overflow:hidden}.deck{display:flex;width:100vw;height:100svh;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none}.deck::-webkit-scrollbar{display:none}
+.slide{flex:0 0 100vw;width:100vw;height:100svh;scroll-snap-align:start;position:relative;overflow:hidden;padding:clamp(22px,4.5vw,64px);background:var(--bg)}
+.slide.dark{background:var(--dark);color:#fff}.kicker{font-size:11px;letter-spacing:.18em;text-transform:uppercase;font-weight:800;color:var(--muted);margin-bottom:9px}.dark .kicker{color:#b9c8c1}
+h1{font-size:clamp(34px,6vw,76px);line-height:.96;letter-spacing:-.055em;margin:0 0 18px;font-weight:900}h2{font-size:clamp(25px,4vw,52px);line-height:1.02;letter-spacing:-.045em;margin:0 0 20px;font-weight:900}h3{font-size:clamp(15px,1.5vw,22px);margin:0 0 7px}p{font-size:clamp(12px,1.35vw,17px);line-height:1.62;margin:6px 0}.small{font-size:11px;color:var(--muted);line-height:1.5}.dark .small{color:#b9c8c1}
+.grid2{display:grid;grid-template-columns:1.15fr .85fr;gap:22px;position:relative;z-index:2}.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.card{background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:15px;box-shadow:0 6px 20px #3d4a4010}.dark .card{background:#223b36;border-color:#39544d}
+.badge{display:inline-flex;align-items:center;gap:5px;border-radius:99px;padding:5px 9px;font-size:10px;font-weight:800;background:#e9eee9;color:var(--green);margin:2px 3px 2px 0}.badge.blue{background:#e7f0f3;color:var(--blue)}.badge.gold{background:#f5ead7;color:#8d641f}.badge.red{background:#f5e6e2;color:#8e463b}
+.heroimg{width:100%;height:100%;object-fit:contain;background:#fff;border-radius:18px}.imgwrap{height:100%;display:flex;align-items:center;justify-content:center}
+.cover .caption{position:absolute;left:4.5vw;bottom:3.2vh;background:#fffdf8e8;border:1px solid #ddd6c8;border-radius:14px;padding:9px 13px;font-size:11px;backdrop-filter:blur(4px)}
+.titlebar{display:flex;justify-content:space-between;align-items:flex-end;gap:15px;border-bottom:1px solid var(--line);padding-bottom:12px;margin-bottom:15px}.titlebar .num{font-size:11px;font-weight:800;color:var(--muted)}
+.timeline{display:grid;grid-template-columns:repeat(7,1fr);gap:7px;height:calc(100% - 75px)}.day{background:#fffdf8;border:1px solid var(--line);border-radius:13px;padding:10px;overflow:hidden}.day .dh{font-size:11px;font-weight:900;background:#1f6172;color:#fff;border-radius:8px;padding:6px;margin-bottom:7px}.day p{font-size:10px;line-height:1.45}.day b{font-weight:900}.routeLine{font-size:12px;font-weight:800;line-height:1.55}.routeLine span{color:var(--blue)}
+.table{width:100%;border-collapse:collapse;font-size:11px}.table th,.table td{border-bottom:1px solid var(--line);padding:8px 6px;text-align:left;vertical-align:top}.table th{color:var(--muted);font-size:10px}.table .ok{font-weight:900;color:var(--green)}.table .todo{font-weight:900;color:var(--red)}
+.map{position:relative;background:linear-gradient(145deg,#eaf1e9,#dfece9);border:1px solid #c9d8d2;border-radius:18px;min-height:340px;overflow:hidden}.map:before{content:"";position:absolute;inset:0;background:linear-gradient(35deg,transparent 49%,#fff7 50%,transparent 51%),linear-gradient(110deg,transparent 49%,#fff7 50%,transparent 51%);opacity:.5}.river{position:absolute;background:#9dc8d3;border-radius:50%;transform:rotate(-20deg)}.road{position:absolute;height:4px;background:#c28b39;border-radius:99px;transform-origin:left center}.dot{position:absolute;width:12px;height:12px;border-radius:50%;background:#1f6172;border:3px solid #fff;box-shadow:0 1px 5px #0003}.label{position:absolute;font-size:10px;font-weight:900;background:#fffdf8dd;border:1px solid #d8d0c3;padding:3px 5px;border-radius:6px;white-space:nowrap}.mount{position:absolute;bottom:0;width:0;height:0;border-left:75px solid transparent;border-right:75px solid transparent;border-bottom:130px solid #a9c3b3;opacity:.65}.food{font-size:28px}.menuitem{display:flex;justify-content:space-between;gap:10px;border-bottom:1px dashed #d8d0c3;padding:7px 0}.menuitem:last-child{border-bottom:0}.menuitem b{font-size:12px}.menuitem span{font-size:10px;color:var(--muted);text-align:right}.note{border-left:4px solid var(--gold);padding:8px 10px;background:#fbf3e4;border-radius:0 10px 10px 0;font-size:11px;line-height:1.55}.tip{border-left:4px solid var(--blue);padding:8px 10px;background:#edf5f6;border-radius:0 10px 10px 0;font-size:11px;line-height:1.55}.warn{border-left:4px solid var(--red);padding:8px 10px;background:#f8ece8;border-radius:0 10px 10px 0;font-size:11px;line-height:1.55}
+.list{margin:0;padding-left:18px}.list li{font-size:12px;line-height:1.55;margin:4px 0}.bigstat{font-size:38px;font-weight:900;letter-spacing:-.05em}.yen{font-size:14px;color:var(--muted);font-weight:700}.role{display:grid;grid-template-columns:80px 1fr;gap:10px;align-items:center}.avatar{width:70px;height:70px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:32px;background:#eef2ed}.footer{position:absolute;left:clamp(22px,4.5vw,64px);right:clamp(22px,4.5vw,64px);bottom:12px;display:flex;justify-content:space-between;color:#89928e;font-size:9px}.navhint{position:fixed;z-index:50;right:12px;bottom:10px;background:#182b28dd;color:#fff;border-radius:99px;padding:6px 10px;font-size:10px;pointer-events:none}
+@media(max-width:800px){.slide{padding:24px 20px 30px}.grid2{grid-template-columns:1fr}.grid3{grid-template-columns:1fr}.grid4{grid-template-columns:repeat(2,1fr)}.timeline{grid-template-columns:repeat(7, minmax(150px,1fr));overflow-x:auto;height:calc(100% - 70px)}.map{min-height:260px}.card{padding:12px}h2{font-size:30px}.cover .caption{left:20px;right:20px}.footer{left:20px;right:20px}}
+
+/* iPhone / small-screen fix: allow each slide to scroll vertically instead of clipping content */
+@media (max-width:800px){
+  html,body{height:100%;overflow:hidden}
+  .deck{height:100svh;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;align-items:flex-start}
+  .slide{height:100svh;min-height:100svh;overflow-x:hidden;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:22px 18px 76px;scroll-snap-align:start}
+  .slide::-webkit-scrollbar{width:0;height:0}
+  .slide > *{max-width:100%}
+  .grid2,.grid3,.grid4{grid-template-columns:1fr;gap:10px}
+  .grid4{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .card{min-width:0}
+  h1{font-size:36px;line-height:1.0}
+  h2{font-size:28px;line-height:1.08;margin-bottom:14px}
+  h3{font-size:16px}
+  p,.list li{font-size:12px;line-height:1.55}
+  .titlebar{align-items:flex-start;margin-bottom:12px}
+  .titlebar .num{flex:0 0 auto}
+  .map{min-height:250px;height:300px}
+  .timeline{height:auto;grid-template-columns:1fr;overflow:visible;gap:8px}
+  .day{min-height:0}
+  .day p{font-size:11px}
+  .footer{position:relative;left:auto;right:auto;bottom:auto;margin-top:14px;padding-top:6px;display:flex;gap:8px;flex-wrap:wrap;font-size:9px}
+  .navhint{bottom:max(8px,env(safe-area-inset-bottom));right:8px}
+  .cover{overflow:hidden;padding:10px}
+  .cover .imgwrap{height:calc(100svh - 70px);align-items:center}
+  .cover .heroimg{width:100%;height:auto;max-height:calc(100svh - 90px);object-fit:contain}
+  .cover .caption{left:12px;right:12px;bottom:12px;font-size:10px}
+}
+
+
+/* v3 illustrated-map styling */
+.illus-map{position:relative;background:linear-gradient(145deg,#f5f0df,#e4eee7);border:1px solid #c9d8d2;border-radius:18px;overflow:hidden;min-height:340px;box-shadow:inset 0 0 0 6px #ffffff55}
+.illus-map svg{display:block;width:100%;height:auto;min-height:300px}
+.illus-map .map-title{font-size:18px;font-weight:900;fill:#18302d}
+.illus-map .map-sub{font-size:11px;font-weight:700;fill:#66726d}
+.illus-map .place{font-size:12px;font-weight:900;fill:#18302d;paint-order:stroke;stroke:#fffdf8;stroke-width:4px;stroke-linejoin:round}
+.illus-map .minor{font-size:10px;font-weight:800;fill:#496e5e;paint-order:stroke;stroke:#fffdf8;stroke-width:3px}
+.illus-map .route{fill:none;stroke:#1f6172;stroke-width:5;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:10 7}
+.illus-map .route2{fill:none;stroke:#c28b39;stroke-width:4;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:7 6}
+.illus-map .water{fill:#a8d2dc;opacity:.92}
+.illus-map .park{fill:#cfe1c8;stroke:#a8c59f;stroke-width:2}
+.illus-map .block{fill:#f7d7a8;stroke:#d8b77e;stroke-width:2}
+.illus-map .landmark{fill:#fffdf8;stroke:#1f6172;stroke-width:2}
+.illus-map .pin{fill:#9b4c3d;stroke:#fffdf8;stroke-width:4}
+.illus-map .note{font-size:10px;font-weight:800;fill:#66726d}
+.illus-map .legend{font-size:10px;font-weight:800;fill:#18302d}
+.city-info{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}
+.city-info .mini{background:#fffdf8;border:1px solid var(--line);border-radius:12px;padding:10px}
+.city-info .mini h4{margin:0 0 5px;font-size:12px}
+.city-info .mini p{font-size:10px;line-height:1.45;margin:0}
+.cover-v3{background:linear-gradient(135deg,#dbeef0,#f7f3ea 48%,#e7efe4);padding:0;overflow:hidden}
+.cover-v3 .cover-panel{position:absolute;inset:0;display:grid;grid-template-columns:1.1fr .9fr;gap:0}
+.cover-v3 .cover-art{position:relative;overflow:hidden;background:linear-gradient(160deg,#6fb2c2,#d8edf0 52%,#e8dfc4)}
+.cover-v3 .cover-art:before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 20% 20%,#ffffff99 0 3%,transparent 4%),radial-gradient(circle at 75% 30%,#ffffff77 0 2%,transparent 3%);opacity:.8}
+.cover-v3 .cover-copy{padding:clamp(28px,5vw,70px);display:flex;flex-direction:column;justify-content:center;background:#fffdf8e9}
+.cover-v3 .eyebrow{font-size:12px;letter-spacing:.16em;font-weight:900;color:#1f6172}
+.cover-v3 .bigtitle{font-size:clamp(42px,6vw,84px);line-height:.95;font-weight:900;letter-spacing:-.06em;margin:12px 0}
+.cover-v3 .subtitle{font-size:clamp(14px,1.7vw,20px);line-height:1.55;color:#496e5e;font-weight:700}
+.cover-v3 .route-pill{display:inline-block;margin-top:18px;padding:8px 12px;border-radius:999px;background:#edf5f6;color:#1f6172;font-weight:900;font-size:11px}
+.cover-v3 .cover-cities{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-top:22px}
+.cover-v3 .cover-city{border:1px solid #ddd6c8;border-radius:12px;padding:10px;background:#fffdf8}
+.cover-v3 .cover-city b{display:block;font-size:13px}.cover-city span{font-size:10px;color:#66726d}
+@media(max-width:800px){
+ .cover-v3 .cover-panel{grid-template-columns:1fr;grid-template-rows:54% 46%;overflow:auto}
+ .cover-v3 .cover-art{min-height:310px}
+ .cover-v3 .cover-copy{padding:22px 18px 34px;justify-content:flex-start}
+ .cover-v3 .bigtitle{font-size:40px}
+ .cover-v3 .cover-cities{margin-top:14px}
+ .illus-map{min-height:0;height:auto}
+ .illus-map svg{min-height:0}
+ .city-info{grid-template-columns:1fr}
+}
+
+.munich-illustration-card{margin-top:10px;padding:10px}.munich-illustration{display:block;width:100%;height:auto;max-height:260px;object-fit:contain;border-radius:10px}
+
+.swiss-region-illustration{position:static;width:100%;height:160px;margin:10px 0;padding:8px;box-sizing:border-box;background:#fffdf8;border:1px solid var(--line);border-radius:12px;box-shadow:0 5px 16px #3d4a4012;display:flex;align-items:center;justify-content:center;z-index:1}.swiss-region-illustration img{display:block;max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain;border-radius:8px}
+
+.food-summary-illustration-wrap{width:100%;height:clamp(150px,24vh,230px);margin-top:10px;border:1px solid var(--line);border-radius:14px;background:rgba(255,253,248,.75);display:flex;align-items:center;justify-content:center;overflow:hidden;position:relative;z-index:1}
+.food-summary-illustration{display:block;width:100%;height:100%;object-fit:contain;object-position:center;border-radius:12px}
+</style>
+<style>
+/* v5: polished cover — full bleed, no center gap */
+.cover-v3 .cover-panel{display:block!important;position:absolute!important;inset:0!important;overflow:hidden!important;background:#172b2a}
+.cover-v3 .cover-art{position:absolute!important;inset:0!important;width:100%!important;height:100%!important;z-index:1!important}
+.cover-v3 .cover-art .heroimg{width:100%!important;height:100%!important;max-height:none!important;object-fit:cover!important;border-radius:0!important}
+.cover-v3 .cover-copy{position:absolute!important;z-index:2!important;left:0!important;right:0!important;bottom:0!important;width:100%!important;padding:clamp(28px,6vw,72px)!important;padding-top:110px!important;justify-content:flex-end!important;background:linear-gradient(180deg,rgba(15,30,29,0) 0%,rgba(15,30,29,.72) 35%,rgba(15,30,29,.96) 100%)!important;color:#fff!important}
+.cover-v3 .cover-copy .bigtitle,.cover-v3 .cover-copy .subtitle,.cover-v3 .cover-copy .eyebrow{color:#fff!important}
+.transport-strip{background:linear-gradient(135deg,#eef5f2,#fffaf0)!important;border-left:5px solid #1f6172!important}
+.transport-strip h3{margin:0 0 5px!important}
+.transport-strip p{margin:0!important;line-height:1.55!important;font-size:13px!important}
+/* stylish final page */
+.end-v5{background:linear-gradient(135deg,#102522 0%,#1d4b50 55%,#8b6a3e 100%)!important;color:#fff!important;overflow:hidden!important}
+.end-v5 .end-inner{height:100%;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:48px;position:relative}
+.end-v5 .end-inner:before{content:"";position:absolute;inset:28px;border:1px solid rgba(255,255,255,.28);border-radius:28px}
+.end-v5 h1{font-size:clamp(42px,8vw,82px);line-height:1.05;margin:18px 0;color:#fff}
+.end-v5 .route{font-size:clamp(16px,2.5vw,24px);letter-spacing:.03em;line-height:1.7;max-width:850px}
+.end-v5 .small{margin-top:28px;opacity:.82}
+@media(max-width:700px){.cover-v3 .cover-copy{padding:24px 20px 38px!important;padding-top:90px!important}.end-v5 .end-inner{padding:30px 20px}}
+</style>
+<style id="added-cover-correct-css">
+.added-cover-correct{
+  padding:0!important;
+  overflow:hidden!important;
+  background:linear-gradient(135deg,#101827 0%,#29465d 55%,#718d96 100%);
+  color:#fff;
+}
+.added-cover-correct-inner{
+  position:relative;
+  width:100%;height:100%;min-height:100%;
+  box-sizing:border-box;
+  padding:42px 28px;
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  text-align:center;
+}
+.added-cover-correct-inner:before{
+  content:"";position:absolute;inset:24px;
+  border:1px solid rgba(255,255,255,.30);
+  border-radius:28px;
+}
+.added-cover-correct .cover-kicker{
+  position:relative;font-size:12px;letter-spacing:.18em;
+  font-weight:700;opacity:.8;
+}
+.added-cover-correct h1{
+  position:relative;margin:22px 0 20px;
+  font-size:clamp(44px,8vw,82px);
+  line-height:1.04;
+}
+.added-cover-correct h1 span{font-weight:400}
+.added-cover-correct .cover-route{
+  position:relative;max-width:900px;
+  padding:14px 20px;border-radius:16px;
+  background:rgba(255,255,255,.12);
+  border:1px solid rgba(255,255,255,.25);
+  font-size:clamp(13px,2vw,20px);
+  line-height:1.7;font-weight:600;
+}
+.added-cover-correct .cover-people{
+  position:relative;margin-top:24px;font-size:19px;font-weight:700;
+}
+.added-cover-correct .cover-tagline{
+  position:relative;margin-top:12px;font-size:14px;opacity:.82;
+}
+.added-cover-correct .cover-date{
+  position:relative;margin-top:22px;font-size:13px;
+  letter-spacing:.14em;opacity:.68;
+}
+@media(max-width:700px){
+  .added-cover-correct-inner{padding:32px 20px}
+  .added-cover-correct-inner:before{inset:16px}
+  .added-cover-correct h1{font-size:44px}
+  .added-cover-correct .cover-route{font-size:14px}
+}
+</style>
+
+<style id="image-reference-page-css">
+.image-reference-page{
+  padding:clamp(18px,3vw,42px)!important;
+  background:linear-gradient(145deg,#f7fbff 0%,#fffdf7 100%);
+  overflow:hidden!important;
+}
+.image-reference-inner{
+  width:100%;height:100%;
+  box-sizing:border-box;
+  display:flex;flex-direction:column;
+  align-items:center;
+  gap:clamp(10px,1.8vh,20px);
+}
+.image-reference-heading{
+  flex:0 0 auto;
+  text-align:center;
+}
+.image-reference-kicker{
+  font-size:clamp(9px,1.2vw,13px);
+  letter-spacing:.18em;
+  font-weight:800;
+  color:#2c668e;
+  margin-bottom:4px;
+}
+.image-reference-heading h1{
+  margin:0;
+  font-size:clamp(26px,4vw,48px);
+  line-height:1.05;
+  color:#153b57;
+}
+.image-reference-heading p{
+  margin:6px 0 0;
+  font-size:clamp(10px,1.4vw,16px);
+  color:#557080;
+}
+.image-reference-grid{
+  width:100%;height:100%;
+  min-height:0;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:clamp(10px,2vw,24px);
+  align-items:center;
+  justify-items:center;
+}
+.image-reference-card{
+  width:100%;
+  height:100%;
+  min-height:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:clamp(5px,1vw,12px);
+  box-sizing:border-box;
+  background:rgba(255,255,255,.72);
+  border:1px solid rgba(38,93,126,.16);
+  border-radius:clamp(12px,1.5vw,22px);
+  box-shadow:0 8px 24px rgba(33,68,88,.10);
+}
+.image-reference-card img{
+  display:block;
+  max-width:100%;
+  max-height:100%;
+  width:auto;
+  height:auto;
+  object-fit:contain;
+  border-radius:clamp(7px,1vw,14px);
+}
+@media(max-width:800px){
+  .image-reference-page{
+    padding:14px 12px!important;
+  }
+  .image-reference-inner{
+    gap:8px;
+  }
+  .image-reference-heading h1{
+    font-size:28px;
+  }
+  .image-reference-heading p{
+    font-size:11px;
+    margin-top:4px;
+  }
+  .image-reference-grid{
+    grid-template-columns:1fr;
+    grid-template-rows:1fr 1fr;
+    gap:8px;
+  }
+  .image-reference-card{
+    padding:4px;
+    border-radius:12px;
+  }
+}
+</style>
+
+<style>
+.dusseldorf-illustration-card{margin-top:10px;padding:10px}
+.dusseldorf-illustration{display:block;width:100%;height:auto;max-height:190px;object-fit:contain;object-position:center;border-radius:10px;background:#fff}
+@media (max-width:700px){.dusseldorf-illustration{max-height:220px}}
+</style>
+
+<style>
+.frankfurt-added-illustration{width:100%;height:46%;min-height:0;object-fit:contain;display:block;background:#fffdf8;border-top:1px solid #d8d0c2;padding:6px;box-sizing:border-box}
+.illus-map.frankfurt-map-with-illustration{display:flex;flex-direction:column;height:100%;min-height:0}
+.illus-map.frankfurt-map-with-illustration svg{width:100%;height:54%;min-height:0;display:block;object-fit:contain}
+</style>
+
+<style>
+.munich-food-illustration-card{margin-top:12px;padding:10px 12px}
+.munich-food-illustration{display:block;width:100%;height:230px;object-fit:contain;object-position:center;background:#fffdf8;border-radius:12px}
+@media (max-width:700px){.munich-food-illustration{height:210px}}
+</style>
+</head>
+<body>
+<div class="deck" id="deck">
+<section class="slide added-cover-correct">
+  <div class="added-cover-correct-inner">
+    <div class="cover-kicker">GERMANY &amp; SWITZERLAND · AUGUST 2027</div>
+    <h1>ドイツ・スイス<br><span>7日間の旅</span></h1>
+    <div class="cover-route">Düsseldorf → München → Neuschwanstein → Interlaken → Jungfraujoch → Frankfurt</div>
+    <div class="cover-people">俺 × 母ちゃん × おんちゃん</div>
+    <div class="cover-tagline">食べる。見る。移動する。ウンチクも楽しむ。</div>
+    <div class="cover-date">2027.8.21 — 8.27</div>
+  </div>
+</section>
+
+<section class="slide">
+<div class="titlebar"><div><div class="kicker">CONTENTS</div><h2>目次｜この旅程表の見方</h2></div><div class="num">01</div></div>
+<div class="grid2">
+<div class="card">
+<h3>🗺️ 旅の基本</h3>
+<p><b>—</b> 旅の全体像｜イラストで全ルートを確認</p>
+<p><b>02</b> 今回の旅は「観光＋食＋ウンチク」</p>
+<p><b>03</b> 7日間の全行程</p>
+<p><b>04</b> 各地の名物料理・お土産</p>
+<p><b>05–06</b> 予算・予約／手配</p>
+</div>
+<div class="card">
+<h3>🇩🇪 ドイツ編</h3>
+<p><b>07–08</b> デュッセルドルフ｜DAY 1–2</p>
+<p><b>09–10</b> ミュンヘン｜DAY 3・食</p>
+<p><b>11</b> ノイシュヴァンシュタイン｜DAY 4</p>
+<p><b>15–16</b> フランクフルト｜DAY 7・食</p>
+</div>
+<div class="card">
+<h3>🇨🇭 スイス編</h3>
+<p><b>12–13</b> インターラーケン｜DAY 5・食</p>
+<p><b>14</b> ユングフラウヨッホ｜DAY 6</p>
+</div>
+<div class="card">
+<h3>📌 実用情報</h3>
+<p><b>17</b> 7日間の「食べるもの」設計</p>
+<p><b>18</b> 交通ルート</p>
+<p><b>19</b> 日本人が戸惑いやすいドイツのマナー</p>
+<p><b>20</b> 同行者に伝えておきたいこと</p>
+<p><b>21</b> 30秒ウンチク集</p>
+</div>
+<div class="card" style="grid-column:1/-1">
+<h3>💰 予約・お金の管理</h3>
+<p><b>22</b> 予約が確定したら、ここを更新する　　<b>23</b> 予約スケジュール　　<b>24</b> 予算の根拠　　<b>25</b> 交通費の詳細見積もり</p>
+</div>
+</div>
+<div class="note" style="margin-top:14px"><b>使い方：</b>まず「03｜7日間の全行程」で全体を把握 → 各日の詳細へ。予約時期・予算を確認するときは「22〜25」を参照。</div>
+</section>
+
+<section class="slide image-reference-page">
+  <div class="image-reference-inner">
+    <div class="image-reference-heading">
+      <div class="image-reference-kicker">TRIP OVERVIEW</div>
+      <h1>旅の全体像</h1>
+      <p>7日間の旅程を、2枚のイラストでひと目に。</p>
+    </div>
+    <div class="image-reference-grid">
+      <div class="image-reference-card">
+        <img src="images/image_01.jpg" alt="旅行全体のイラストマップ・旅程">
+      </div>
+      <div class="image-reference-card">
+        <img src="images/image_02.jpg" alt="旅行全体のイラストマップ・旅程詳細">
+      </div>
+    </div>
+  </div>
+</section>
+<section class="slide">
+<div class="titlebar"><div><div class="kicker">TRIP CONCEPT</div><h2>今回の旅は「観光＋食＋ウンチク」</h2></div><div class="num">02</div></div>
+<div class="grid3">
+<div class="card"><div class="food">🍺</div><h3>ドイツの食を横断</h3><p>デュッセルドルフ、ミュンヘン、フランクフルトの名物を、店・スーパーの両方で食べる。</p><span class="badge">Altbier</span><span class="badge">Haxen</span><span class="badge">Knödel</span><span class="badge">Grüne Soße</span></div>
+<div class="card"><div class="food">🏔️</div><h3>アルプスは個人手配</h3><p>ユングフラウヨッホはツアーではなく個人移動。昼食はスーパーで調達して山でピクニック。</p><span class="badge blue">Jungfraujoch</span><span class="badge blue">Grindelwald</span><span class="badge blue">Lauterbrunnen</span></div>
+<div class="card"><div class="food">🧠</div><h3>母ちゃん＆おんちゃん向け</h3><p>各地で「30秒ウンチク」を用意。現地ではeSIM無制限を武器にChatGPTを使い倒す。</p><span class="badge gold">へぇ〜を量産</span><span class="badge red">ただし重要情報は現地確認</span></div>
+</div>
+<div class="grid2" style="margin-top:16px">
+<div class="card"><h3>旅の基本条件</h3><p><b>期間：</b>2027/8/21(土)〜8/27(金) ※帰国8/28</p><p><b>人数：</b>大人3人・ホテル3人1室</p><p><b>飛行機：</b>成田→フランクフルト→成田（予算計算から除外）</p><p><b>都市：</b>デュッセルドルフ → ミュンヘン → インターラーケン → フランクフルト</p></div>
+<div class="card"><h3>旅行全体の方針</h3><p>移動が多いので、朝食・一部夕食はスーパーを活用。レストランでは「その土地らしい料理」を優先し、重い料理が続かないように味・食材・調理法を分散。</p></div>
+</div>
+<div class="footer"><span>3人旅・実用版</span><span>→ 横スワイプで次へ</span></div>
+</section>
+<section class="slide">
+<div class="titlebar"><div><div class="kicker">MASTER TIMELINE</div><h2>7日間の全行程</h2></div><div class="num">03</div></div>
+<div class="timeline">
+<div class="day"><div class="dh">DAY 1｜8/21 土</div><p>06:00 自宅</p><p>07:30 成田</p><p>10:35 ✈ 成田発</p><p>17:45 フランクフルト着</p><p>→ デュッセルドルフ</p><p>20:00 ホテル</p><p>スーパー買出し</p><p>23:00 就寝</p></div>
+<div class="day"><div class="dh">DAY 2｜8/22 日</div><p>デュッセルドルフ</p><p>おんちゃんの友人に案内をお任せ</p><p>夜：前日購入のつまみで晩酌</p><p>23:00 就寝</p></div>
+<div class="day"><div class="dh">DAY 3｜8/23 月</div><p>06:00 起床</p><p>06:30 チェックアウト</p><p>07:00 Düsseldorf発</p><p>12:30 München</p><p>13:00 Augustiner-Keller</p><p>15:00〜18:30 市内散策</p><p>19:00 Wirtshaus in der Au</p><p>21:30 ホテル</p></div>
+<div class="day"><div class="dh">DAY 4｜8/24 火</div><p>07:00 起床</p><p>07:30 出発</p><p>08:00 München→城方面</p><p>10:00 Kainzでブランチ</p><p>13:00 Marienbrücke</p><p>14:00 城内部</p><p>16:15 FlixBus</p><p>19:00 Servus Heidi</p></div>
+<div class="day"><div class="dh">DAY 5｜8/25 水</div><p>05:20 起床</p><p>06:00 朝昼食購入</p><p>06:30 München発</p><p>13:00 Interlaken West</p><p>13:00〜自由時間</p><p>18:00 Taverne</p><p>20:30 スーパー</p><p>22:00 ホテル</p></div>
+<div class="day"><div class="dh">DAY 6｜8/26 木</div><p>06:30 起床</p><p>07:00 出発</p><p>08:30 Grindelwald</p><p>10:00 Jungfraujochへ</p><p>11:00〜13:00 山頂</p><p>13:30 Kleine Scheidegg</p><p>14:00 Lauterbrunnen</p><p>18:30 Da Rafmi</p></div>
+<div class="day"><div class="dh">DAY 7｜8/27 金</div><p>05:40 起床</p><p>06:10 チェックアウト</p><p>06:30 Interlaken発</p><p>11:30 Frankfurt Hbf</p><p>12:30 Hühnermarkt</p><p>14:00〜観光</p><p>15:30〜空港</p><p>20:10 ✈ フランクフルト発</p></div>
+</div>
+<div class="footer"><span>8/28 16:15 成田着 → 18:30 自宅</span><span>※予約確定後に時刻・列車番号を更新</span></div>
+</section><section class="slide">
+<div class="titlebar"><div><div class="kicker">FOOD &amp; SOUVENIRS</div><h2>各地の名物料理・お土産｜「食べて買って」まとめ</h2></div><div class="num">04</div></div>
+<div class="grid2">
+<div>
+<div class="card"><h3>🇩🇪 Düsseldorf</h3><p><b>食：</b>Altbier／Rheinischer Sauerbraten系／Roggenbrot／ソーセージ・ハム／Senf。</p><p><b>お土産：</b>Altbier、Löwensenfなどのマスタード、チョコ・菓子、ドイツ調味料。</p></div>
+<div class="card" style="margin-top:10px"><h3>🇩🇪 München</h3><p><b>食：</b>Weißwurst／Brezn／Obatzda／Haxen／Knödel／Münchner Schnitzel／Helles。</p><p><b>お土産：</b>ビール関連グッズ、マスタード、バイエルン菓子、木製・布製の小物。</p></div>
+</div>
+<div>
+<div class="card"><h3>🇨🇭 Interlaken</h3><p><b>食：</b>Fondue／Raclette／Rösti／チーズ・チョコレート。</p><p><b>お土産：</b>スイスチョコ、チーズ、木製雑貨、アルプス系食品・菓子。</p></div>
+<div class="card" style="margin-top:10px"><h3>🇩🇪 Frankfurt</h3><p><b>食：</b>Frankfurter Grüne Soße／Frankfurter Schnitzel／Frankfurter Würstchen／Handkäse／Apfelwein。</p><p><b>お土産：</b>アップルワイン、グリューネ・ゾーセ関連商品、マスタード、チョコ・菓子。</p></div>
+<div class="note" style="margin-top:10px"><b>3人旅の食べ方：</b>1人1皿ではなく、複数品をシェア。肉→チーズ→野菜・軽食と味を散らし、同じ系統を連発しない。</div>
+</div></div>
+<div class="food-summary-illustration-wrap">
+<img class="food-summary-illustration" src="images/image_03.jpg" alt="各地の名物料理とお土産のイラストまとめ">
+</div>
+<div class="footer"><span>※アルコール類は日本への持ち込み条件を帰国前に確認</span><span>お土産は重量・液体物にも注意</span></div>
+</section>
+<section class="slide">
+<div class="titlebar"><div><div class="kicker">BUDGET</div><h2>飛行機を除く総予算｜ざっくり100万円</h2></div><div class="num">05</div></div>
+<div class="grid2">
+<div>
+<div class="card"><div class="bigstat">約 ¥850,000〜1,050,000</div><div class="yen">3人合計・航空券除外｜為替・予約時期で変動</div><p style="margin-top:10px">中心値として<b>約95〜100万円</b>、1人あたり<b>約32〜33万円</b>を見ておく想定。</p></div>
+<div class="card" style="margin-top:12px">
+<h3>概算の根拠</h3>
+<table class="table"><tr><th>項目</th><th>3人合計の目安</th><th>考え方</th></tr>
+<tr><td>🏨 ホテル6泊</td><td>¥230,000〜300,000</td><td>3人1室。Düsseldorf/München/Interlakenで価格差あり</td></tr>
+<tr><td>🚆 長距離・山岳交通</td><td>¥300,000〜370,000</td><td>ICE、独→瑞、瑞→独、Jungfrau等</td></tr>
+<tr><td>🍽️ 食費</td><td>¥150,000〜200,000</td><td>レストラン＋スーパー。朝食・一部夕食を節約</td></tr>
+<tr><td>🎫 観光・市内交通</td><td>¥90,000〜130,000</td><td>城、Harder Kulm、各種市内移動など</td></tr>
+<tr><td>📱 通信・雑費</td><td>¥30,000〜50,000</td><td>eSIM、コインロッカー、チップ、予備費等</td></tr></table>
+</div>
+</div>
+<div class="card">
+<h3>予算を抑えるポイント</h3>
+<ul class="list"><li>朝食を毎日レストランにしない</li><li>8/21夕食はスーパー</li><li>8/22夜は前日購入のつまみ</li><li>Jungfraujoch昼食はスーパー購入→ピクニック</li><li>3人1室でホテル代を分散</li></ul>
+<div class="note" style="margin-top:14px"><b>注意：</b>これは2027年の実売価格ではなく、現時点での旅程から作った「予算取り」の数字。予約確定後に実額へ更新。</div>
+</div>
+</div>
+</section>
+<section class="slide">
+<div class="titlebar"><div><div class="kicker">BOOKING CONTROL</div><h2>予約・手配の司令塔</h2></div><div class="num">06</div></div>
+<div class="card">
+<table class="table"><tr><th>対象</th><th>予定</th><th>状態</th><th>メモ</th></tr>
+<tr><td>🏨 Ruby Leni Düsseldorf</td><td>8/21–23</td><td class="todo">予約予定</td><td>3人1室</td></tr>
+<tr><td>🚆 Düsseldorf→München</td><td>8/23 朝</td><td class="todo">予約予定</td><td>ICE中心で検討</td></tr>
+<tr><td>🍽️ Augustiner-Keller</td><td>8/23 13:00</td><td class="todo">予約予定</td><td>3人</td></tr>
+<tr><td>🍽️ Wirtshaus in der Au</td><td>8/23 19:00</td><td class="todo">予約予定</td><td>Knödel系をシェア</td></tr>
+<tr><td>🚍 München→Hohenschwangau</td><td>8/24 08:00</td><td class="todo">予約予定</td><td>FlixBus候補</td></tr>
+<tr><td>🏰 Neuschwanstein</td><td>8/24 14:00</td><td class="todo">予約予定</td><td>入場時間厳守</td></tr>
+<tr><td>🚍 帰路FlixBus</td><td>8/24 16:15</td><td class="todo">予約予定</td><td>Münchenへ</td></tr>
+<tr><td>🍽️ Servus Heidi</td><td>8/24 19:00</td><td class="todo">予約予定</td><td>3人</td></tr>
+<tr><td>🏨 Hotel Central Continental</td><td>8/25–27</td><td class="todo">予約予定</td><td>3人1室・冷蔵庫要確認</td></tr>
+<tr><td>🚆 München→Interlaken</td><td>8/25 06:30</td><td class="todo">予約予定</td><td>Zürich Flughafen経由</td></tr>
+<tr><td>🍽️ Taverne</td><td>8/25 18:00</td><td class="todo">予約予定</td><td>元17:00→18:00へ変更</td></tr>
+<tr><td>🚆 Interlaken→Grindelwald</td><td>8/26 朝</td><td class="todo">予約予定</td><td>山岳交通</td></tr>
+<tr><td>🏔️ Jungfraujoch</td><td>8/26 10:00〜</td><td class="todo">予約予定</td><td>個人手配・公式時刻確認</td></tr>
+<tr><td>🍝 Trattoria Da Rafmi</td><td>8/26 18:30</td><td class="todo">予約予定</td><td>3人</td></tr>
+<tr><td>🚆 Interlaken→Frankfurt</td><td>8/27 06:30</td><td class="todo">予約予定</td><td>Frankfurt Hbf 11:30頃</td></tr>
+<tr><td>🍽️ Wirtshaus am Hühnermarkt</td><td>8/27 12:30</td><td class="todo">予約予定</td><td>フランクフルト名物</td></tr>
+</table>
+</div>
+<div class="tip" style="margin-top:12px">予約確定後：列車番号／正確な発着時刻／予約番号／キャンセル条件をこの表に追記する。</div>
+</section>
+<section class="slide">
+<div class="titlebar"><div><div class="kicker">DÜSSELDORF</div><h2>DAY 1｜到着 → 買い出し → 早寝</h2></div><div class="num">07</div></div>
+<div class="grid2">
+<div class="illus-map"><svg aria-label="デュッセルドルフ到着日のイラスト地図" role="img" viewbox="0 0 760 500">
+<rect fill="#f4f0df" height="500" width="760"></rect>
+<path class="water" d="M80,-20 C170,70 125,150 175,235 C220,315 130,385 210,520 L70,520 C5,410 70,320 40,235 C5,150 45,65 0,-20Z"></path>
+<path class="park" d="M500 30 Q650 20 730 105 L720 205 Q620 170 535 220 Q470 170 500 30Z"></path>
+<path class="block" d="M230 100 L420 75 L510 150 L445 250 L255 225Z"></path>
+<path class="block" d="M275 285 L490 270 L560 380 L335 425Z"></path>
+<path class="route" d="M585 425 L470 350 L410 270 L330 205 L270 155"></path>
+<path class="route2" d="M330 205 L430 160 L520 235"></path>
+<circle class="pin" cx="585" cy="425" r="10"></circle><text class="place" x="600" y="430">Frankfurt Airport→</text>
+<circle class="pin" cx="470" cy="350" r="10"></circle><text class="place" x="485" y="355">Düsseldorf Hbf</text>
+<circle class="pin" cx="410" cy="270" r="10"></circle><text class="place" x="425" y="265">Ruby Leni</text>
+<circle class="pin" cx="330" cy="205" r="10"></circle><text class="place" x="345" y="200">Zurheide</text>
+<text class="map-title" x="225" y="55">DAY 1｜到着 → ホテル → 買い出し</text>
+<text class="minor" x="55" y="250">ライン川</text><text class="minor" x="305" y="120">Altstadt</text><text class="minor" x="510" y="300">Königsallee</text>
+<text class="note" x="470" y="465">夜はスーパーで夕食＋翌日分を一気に確保</text>
+</svg></div>
+<div><div class="card transport-strip"><h3>🚆 移動ルート</h3><p>🚆 交通｜06:00 自宅 → 07:30 成田空港 → 10:35 成田発 → 17:45 Frankfurt Airport着 → 鉄道でDüsseldorfへ → Düsseldorf Hbf → 徒歩/市内交通 → Ruby Leni → 徒歩 → Zurheide</p></div>
+<div class="card"><h3>17:45｜Frankfurt Airport着 → Düsseldorfへ</h3><p>空港から鉄道でデュッセルドルフへ。<b>20:00頃 Ruby Leni Hotel Düsseldorf by IHG</b> 到着予定。</p><p class="small">大きな移動日のため、到着後は観光せず「翌日以降をラクにする準備」に全振り。</p></div>
+<div class="card" style="margin-top:10px"><h3>20:00〜｜Zurheide Feine Kost – EDEKA Frischecenter</h3><p>夕食＋8/22朝食＋8/22夜のつまみ＋8/23朝食＋お土産候補をまとめて購入。</p><p><b>狙い：</b>Altbier、Roggenbrot、チーズ、ハム・ソーセージ、惣菜、チョコ・菓子、ドイツ調味料。</p></div>
+<div class="card" style="margin-top:10px"><h3>🧠 30秒ウンチク</h3><p><b>Altbier：</b>デュッセルドルフの代表的ビール。小ぶりのグラスで提供され、飲み終わると次が来る店も。</p><p><b>Zurheide：</b>「スーパーそのものを食文化として楽しむ」初日の目玉。</p></div>
+<div class="tip" style="margin-top:10px"><b>23:00｜就寝</b>　翌日はおんちゃんの友人に案内をお任せ。初日に無理をしない。</div>
+</div></div><div class="card hotel-card" style="margin-top:10px"><h3>🏨 宿泊｜Ruby Leni Hotel Düsseldorf by IHG</h3><p>8/21・8/22とも同じホテル。DAY 1は20:00頃到着、DAY 2は23:00頃就寝。</p></div></section><section class="slide">
+<div class="titlebar"><div><div class="kicker">DÜSSELDORF</div><h2>DAY 2｜おんちゃんの友人と街歩き</h2></div><div class="num">08</div></div>
+<div class="grid2">
+<div class="illus-map"><svg aria-label="デュッセルドルフ観光のイラスト地図" role="img" viewbox="0 0 760 500">
+<rect fill="#f4f0df" height="500" width="760"></rect>
+<path class="water" d="M90,-20 C155,80 120,160 175,250 C215,330 135,410 205,520 L65,520 C5,400 75,320 35,225 C5,140 55,55 0,-20Z"></path>
+<path class="park" d="M480 30 Q650 15 730 110 L715 210 Q610 175 515 230 Q460 160 480 30Z"></path>
+<path class="block" d="M230 90 L430 75 L510 165 L430 250 L250 220Z"></path>
+<path class="block" d="M300 285 L535 270 L585 390 L325 430Z"></path>
+<path class="route" d="M210 320 L275 240 L320 190 L430 165 L515 120"></path>
+<circle class="pin" cx="210" cy="320" r="10"></circle><text class="place" x="225" y="325">MedienHafen</text>
+<circle class="pin" cx="275" cy="240" r="10"></circle><text class="place" x="290" y="235">Rheinufer</text>
+<circle class="pin" cx="320" cy="190" r="10"></circle><text class="place" x="335" y="185">Altstadt</text>
+<circle class="pin" cx="430" cy="165" r="10"></circle><text class="place" x="445" y="160">Königsallee</text>
+<circle class="pin" cx="515" cy="120" r="10"></circle><text class="place" x="530" y="115">友人と観光</text>
+<text class="map-title" x="255" y="55">DAY 2｜友人とデュッセルドルフ</text>
+<text class="minor" x="70" y="260">ライン川沿い</text><text class="minor" x="555" y="210">買い物・街歩き</text>
+<text class="note" x="485" y="465">夜は前日に買ったつまみで晩酌</text>
+</svg></div>
+<div class="card munich-illustration-card dusseldorf-illustration-card"><h3>🎨 デュッセルドルフ｜観光・名物・お土産</h3><img class="munich-illustration dusseldorf-illustration" src="images/image_04.jpg" alt="デュッセルドルフの観光地・名物料理・お土産のイラスト"></div>
+<div><div class="card transport-strip"><h3>🚆 移動ルート</h3><p>🚆 交通｜ホテル → Düsseldorf市内を徒歩・公共交通で友人と移動 → 観光終了後ホテルへ。具体的なルートは友人にお任せ。</p></div>
+<div class="card"><h3>日中｜観光は完全に友人へお任せ</h3><p>旧市街（Altstadt）・ライン川沿い・ケーニヒスアレー・メディエンハーフェンなど、現地のおすすめを中心に回る。</p><p class="small">3人で無理に観光地を詰め込まず、友人との時間を優先。</p></div>
+<div class="card" style="margin-top:10px"><h3>🍺 今日の名物</h3><p><b>Altbier</b>を現地で。食事は友人のおすすめを優先し、ミュンヘン以降の料理と被らないものを狙う。</p></div>
+<div class="card" style="margin-top:10px"><h3>🌙 夜｜ホテルで晩酌</h3><p>前日にZurheideで買ったつまみを中心に、部屋でゆっくり。移動の少ない一日だからこそ、翌日に備えて回復。</p></div>
+<div class="tip" style="margin-top:10px"><b>23:00｜就寝</b>　翌朝6:00起床。07:00頃 Düsseldorf発→Münchenへ。</div>
+</div></div><div class="card hotel-card" style="margin-top:10px"><h3>🏨 宿泊｜Ruby Leni Hotel Düsseldorf by IHG</h3><p>2泊目。友人との観光後、前日に購入したつまみで部屋飲み。</p></div></section>
+<section class="slide">
+<div class="titlebar"><div><div class="kicker">MÜNCHEN</div><h2>DAY 3｜歩いて「ミュンヘンらしさ」を回収</h2></div><div class="num">09</div></div>
+<div class="grid2">
+<div class="illus-map"><svg aria-label="ミュンヘン市内観光のイラスト地図" role="img" viewbox="0 0 760 500">
+<rect fill="#f4f0df" height="500" width="760"></rect>
+<path class="water" d="M625 0 Q570 100 625 180 Q675 255 600 330 Q560 390 620 520 L760 520 L760 0Z"></path>
+<path class="park" d="M475 30 Q610 20 690 85 L675 175 Q590 150 500 205 Q445 135 475 30Z"></path>
+<path class="block" d="M130 130 L365 80 L510 150 L470 300 L215 320Z"></path>
+<path class="route" d="M120 390 L245 310 L315 245 L385 210 L465 165 L550 125"></path>
+<path class="route2" d="M315 245 L350 305 L500 365"></path>
+<circle class="pin" cx="120" cy="390" r="10"></circle><text class="place" x="135" y="395">Eurostars Book</text>
+<circle class="pin" cx="245" cy="310" r="10"></circle><text class="place" x="260" y="305">Augustiner-Keller</text>
+<circle class="pin" cx="315" cy="245" r="10"></circle><text class="place" x="330" y="240">Marienplatz</text>
+<circle class="pin" cx="385" cy="210" r="10"></circle><text class="place" x="400" y="205">St.Peter / Viktualienmarkt</text>
+<circle class="pin" cx="465" cy="165" r="10"></circle><text class="place" x="480" y="160">Asamkirche</text>
+<circle class="pin" cx="550" cy="125" r="10"></circle><text class="place" x="565" y="120">Hofbräuhaus</text>
+<circle class="pin" cx="500" cy="365" r="10"></circle><text class="place" x="515" y="370">Wirtshaus in der Au</text>
+<text class="map-title" x="235" y="50">DAY 3｜中心部を徒歩でぐるっと</text>
+<text class="minor" x="505" y="260">Isar</text><text class="minor" x="475" y="85">Residenz（時間があれば）</text>
+<text class="note" x="205" y="465">美術館なし｜各所は「ざっと見る」方針</text>
+</svg></div>
+<div><div class="card transport-strip"><h3>🚆 移動ルート</h3><p>🚆 交通｜06:30ホテル発・チェックアウト → Düsseldorf Hbf → 🚆 07:00頃発 → München Hbf 12:30頃着 → Eurostars Book Hotelへ荷物預け → 市内は徒歩中心 → 18:30タクシーでWirtshaus in der Au → 21:00電車でホテル方面 → 21:30ホテル</p></div>
+<div class="card munich-illustration-card"><h3>🎨 ミュンヘン｜観光・名物・お土産</h3><img class="munich-illustration" src="images/image_05.jpg" alt="ミュンヘンの観光地・名物料理・お土産のイラスト"></div>
+<div class="card"><h3>13:00｜Augustiner-Keller</h3><p><b>狙い：</b>Augustinerのビール＋ミュンヘン料理。3人でシェアして肉料理一辺倒を避ける。</p><p class="small">候補：Münchner Schnitzel／Obatzda＋Brezn／ソーセージ系。最終メニューは予約時に確認。</p></div>
+<div class="card" style="margin-top:10px"><h3>15:00〜18:30｜市内</h3><p>Marienplatz → St. Peter → Viktualienmarkt → Asamkirche → Hofbräuhaus → （時間があれば）Residenz → Manufactum / Dallmayr / OBACHT'</p><div class="tip">美術館は今回は行かない。各所は「ざっと見る」方針で、距離の近い中心部を徒歩で効率よく回る。</div></div>
+<div class="card" style="margin-top:10px"><h3>19:00｜Wirtshaus in der Au</h3><p><b>ここはKnödelを主役に。</b>肉系のメイン＋団子料理＋さっぱりした副菜を3人でシェア。</p></div>
+</div>
+</div>
+<div class="card hotel-card" style="margin-top:10px"><h3>🏨 宿泊｜Eurostars Book Hotel München</h3><p>8/23・8/24の2泊。到着後に荷物を預け、翌日はノイシュバンシュタインへ。</p></div></section>
+<section class="slide"><div class="titlebar"><div><div class="kicker">MÜNCHEN FOOD</div><h2>3人でシェア｜店ごとに役割を変える</h2></div><div class="num">10</div></div>
+<div class="grid3">
+<div class="card"><h3>Augustiner-Keller｜13:00</h3><div class="menuitem"><b>Obatzda＋Brezn</b><span>軽い・チーズ系</span></div><div class="menuitem"><b>Münchner Schnitzel</b><span>王道・揚げ物</span></div><div class="menuitem"><b>ソーセージ系</b><span>3人で少量シェア</span></div><div class="note">→ 昼は「ミュンヘンの王道を広く」。夕食のKnödelと肉料理を考え、食べ過ぎない。</div></div>
+<div class="card"><h3>Hofbräuhaus｜散策中</h3><div class="menuitem"><b>Hofbräu Original</b><span>ここはビールが主役</span></div><div class="menuitem"><b>Breznなど軽食</b><span>つまむ程度</span></div><div class="note">→ 夕食前なので料理は最小限。名物ビアホールの雰囲気を楽しむ。</div></div>
+<div class="card"><h3>Wirtshaus in der Au｜19:00</h3><div class="menuitem"><b>Knödel Trio</b><span>店の個性・シェア向き</span></div><div class="menuitem"><b>Schweinsbraten / 鴨系</b><span>こってり・主菜</span></div><div class="menuitem"><b>サラダ系</b><span>さっぱり・口直し</span></div><div class="note">→ 昼のSchnitzelと被せず「Knödel＋ロースト＋野菜」で締める。</div></div>
+</div>
+<div class="card munich-food-illustration-card"><h3>🍽️ ミュンヘンで3人シェア｜料理のイメージ</h3><img class="munich-food-illustration" alt="ミュンヘンのレストランで3人でシェアする料理のイラスト" src="images/image_06.jpg"></div>
+<div class="card" style="margin-top:14px"><h3>🍽️ 3日目のバランス</h3><p><b>昼：</b>Obatzda＋Brezn → Schnitzel → ソーセージを少量。<br/><b>午後：</b>Hofbräu Originalを1杯。<br/><b>夜：</b>Knödel＋ロースト系＋サラダ。<br/>→ <b>チーズ・揚げ物・肉・団子を分散</b>して、同じ重さの料理が連続しないようにする。</p></div>
+<div class="card" style="margin-top:10px"><h3>🏨 宿泊｜Eurostars Book Hotel München</h3><p>8/23・8/24の2泊。8/23は21:30頃、8/24は21:30頃ホテル帰着予定。</p></div>
+<div class="footer"><span>メニューは2026年確認情報を参考にした候補｜2027年は変更の可能性あり</span><span>3人でシェア前提</span></div></section>
+<section class="slide">
+<div class="titlebar"><div><div class="kicker">NEUSCHWANSTEIN</div><h2>DAY 4｜橋 → 城 → ミュンヘン</h2></div><div class="num">11</div></div>
+<div class="grid2">
+<div class="illus-map"><svg aria-label="ノイシュバンシュタイン城の日程イラスト地図" role="img" viewbox="0 0 760 500">
+<rect fill="#eaf1e9" height="500" width="760"></rect>
+<path class="park" d="M0 365 Q160 260 320 355 T760 330 L760 500 L0 500Z"></path>
+<polygon fill="#9fbcae" points="40,355 180,180 320,355"></polygon><polygon fill="#7fa28f" points="250,360 430,135 590,360"></polygon><polygon fill="#a9c4b4" points="500,360 650,200 760,355 760,500 500,500"></polygon>
+<path class="route" d="M85 420 L220 330 L355 210 L500 290 L650 420"></path>
+<circle class="pin" cx="85" cy="420" r="10"></circle><text class="place" x="100" y="425">P4 / Hohenschwangau</text>
+<circle class="pin" cx="220" cy="330" r="10"></circle><text class="place" x="235" y="325">Kainz</text>
+<circle class="pin" cx="355" cy="210" r="10"></circle><text class="place" x="370" y="205">Marienbrücke</text>
+<circle class="pin" cx="500" cy="290" r="10"></circle><text class="place" x="515" y="285">Neuschwanstein</text>
+<circle class="pin" cx="650" cy="420" r="10"></circle><text class="place" x="665" y="425">FlixBus → München</text>
+<text class="map-title" x="250" y="55">DAY 4｜麓 → 橋 → 城 → ミュンヘン</text>
+<text class="minor" x="290" y="380">徒歩・シャトルの動線</text><text class="minor" x="510" y="160">アルプスの山並み</text>
+<text class="note" x="440" y="465">19:00 Servus Heidi｜21:30 ホテル</text>
+</svg></div>
+<div><div class="card transport-strip"><h3>🚆 移動ルート</h3><p>🚆 交通｜07:30ホテル発 → 08:00 FlixBusでMünchen → Hohenschwangau周辺 → シャトルバスで高地へ → Marienbrücke → 徒歩でNeuschwanstein → 16:15 FlixBusでMünchenへ → 18:00着 → 19:00夕食 → 21:00電車でホテル → 21:30着</p></div>
+<div class="card"><h3>08:00｜München → 城周辺</h3><p>FlixBus候補。10時過ぎ到着想定。</p></div>
+<div class="card" style="margin-top:9px"><h3>10:00｜Kainz Restaurant</h3><p>ブランチ。城観光前なので、食べ過ぎず移動できる量を意識。</p></div>
+<div class="card" style="margin-top:9px"><h3>12:00｜シャトル → 13:00 Marienbrücke</h3><p>シャトルは予約不可想定。橋から城を撮影。</p></div>
+<div class="card" style="margin-top:9px"><h3>14:00｜Neuschwanstein内部</h3><p>予約時間を最優先。橋から城までは徒歩移動を見込む。</p></div>
+<div class="warn" style="margin-top:9px"><b>要確認：</b>シャトル運行・当日の混雑・城の予約枠・帰りのFlixBusを、予約確定時に公式情報と照合。</div>
+<div class="card" style="margin-top:9px"><h3>19:00｜Servus Heidi 🍽️</h3><p><b>ミュンヘン帰着後の夕食。</b> 3人でシェアし、昼のブランチや城周辺の食事と被らない料理を優先。人気メニューは予約時の最新メニューで確認する。</p><p class="small">16:15 FlixBus → 18:00 München着 → 19:00夕食 → 21:30ホテル。</p></div><div class="card" style="margin-top:9px"><h3>🍽️ Kainzで狙う</h3><p><b>Weißwurst＋Brezn</b>を3人でシェアして「バイエルンらしさ」を回収。食べ応えを求めるなら<b>Schweinebraten＋Kartoffelknödel</b>。ブランチなので、城観光前は軽めを推奨。</p><p class="small">公式メニューでは地域料理としてObazda、Weißwurst、Schweinebratenなどを掲載。営業時間は10:00〜17:00、温かい料理は10:30〜16:00。</p></div><div class="card" style="margin-top:9px"><h3>🍽️ Servus Heidiで狙う</h3><p><b>Knödel Trio</b>＋<b>Bayrische Lachsforelle</b>など、昼の白ソーセージやロースト系と被らない組み合わせがおすすめ。3人なら前菜のSharing Brettlも候補。</p><p class="small">現行メニューにはKnödel Trio、Backhendl、Münchner Schnitzel、Lachsforelleなど。夕食は「魚＋Knödel＋野菜」で変化を出す。</p></div></div>
+</div>
+<div class="card hotel-card" style="margin-top:10px"><h3>🏨 宿泊｜Eurostars Book Hotel München</h3><p>2泊目。Servus Heidiで夕食後、21:30頃ホテルへ。</p></div></section>
+<section class="slide">
+<div class="titlebar"><div><div class="kicker">INTERLAKEN</div><h2>DAY 5｜アルプス到着日は「余白」を楽しむ</h2></div><div class="num">12</div></div><div class="grid2">
+<div class="illus-map"><svg aria-label="インターラーケン到着日のイラスト地図" role="img" viewbox="0 0 760 500">
+<rect fill="#eaf1e9" height="500" width="760"></rect>
+<path class="water" d="M0 175 Q120 115 260 175 T520 165 T760 190 L760 300 Q610 260 480 300 T190 285 T0 320Z"></path>
+<polygon fill="#8fb0a0" points="50,500 190,260 330,500"></polygon><polygon fill="#7da08e" points="210,500 390,205 560,500"></polygon><polygon fill="#a4beaf" points="420,500 610,235 760,500"></polygon>
+<path class="route" d="M95 340 L260 300 L390 335 L535 250 L640 150"></path>
+<circle class="pin" cx="95" cy="340" r="10"></circle><text class="place" x="110" y="345">Interlaken West</text>
+<circle class="pin" cx="260" cy="300" r="10"></circle><text class="place" x="275" y="295">Hotel Central Continental</text>
+<circle class="pin" cx="390" cy="335" r="10"></circle><text class="place" x="405" y="340">Höhematte</text>
+<circle class="pin" cx="535" cy="250" r="10"></circle><text class="place" x="550" y="245">Taverne</text>
+<circle class="pin" cx="640" cy="150" r="10"></circle><text class="place" x="505" y="140">Harder Kulm</text>
+<text class="map-title" x="250" y="55">DAY 5｜到着 → 自由時間 → チーズ料理</text>
+<text class="minor" x="300" y="190">Brienzersee / Thunersee</text><text class="minor" x="600" y="390">アルプス</text>
+<text class="note" x="420" y="465">18:00 Taverne → 20:30 Migrolino</text>
+</svg></div>
+<div><div class="swiss-region-illustration" aria-label="インターラーケン・ユングフラウヨッホ・グリンデルワルド・ラウターブルンネンのイラスト">
+<img src="images/image_07.jpg" alt="インターラーケン、ユングフラウヨッホ、グリンデルワルド、ラウターブルンネンの観光地・名物料理・お土産のイラスト">
+</div><div class="card transport-strip"><h3>🚆 移動ルート</h3><p>🚆 交通｜05:50ホテルチェックアウト → München駅 → 06:30 🚆 Zürich Flughafen経由 → Interlaken West 13:00頃 → Hotel Central Continental → 自由時間（Harder Kulmなら鉄道利用候補） → Taverneへ徒歩/市内移動 → 19:30 migrolino Interlaken West → ホテル</p></div>
+<div class="card"><h3>13:00〜18:00｜予約なしの自由時間</h3><p>街歩き／Harder Kulm／Höhematteでパラグライダーを見る／ホテルで休憩、から当日の天気・体力で選択。</p></div>
+<div class="card" style="margin-top:10px"><h3>18:00｜Restaurant Taverne</h3><p>チーズフォンデュ＋ラクレットを軸に、3人でシェア。チーズが重いので、付け合わせ・サラダ・飲み物でバランスを取る。</p></div>
+<div class="card" style="margin-top:10px"><h3>20:30｜migrolino Interlaken West</h3><p>晩酌＋翌朝食＋Jungfraujoch昼食を購入。ホテル冷蔵庫の有無は予約前に確認。</p></div>
+<div class="note" style="margin-top:10px">17:00予約から18:00予約へ変更。以降のスーパー等を約1時間後ろ倒し。</div>
+</div>
+</div>
+<div class="card hotel-card" style="margin-top:10px"><h3>🏨 宿泊｜Hotel Central Continental Interlaken</h3><p>8/25・8/26の2泊。Interlaken Westから移動しやすい立地を活用。</p></div></section>
+<section class="slide"><div class="titlebar"><div><div class="kicker">INTERLAKEN FOOD</div><h2>3人でシェア｜チーズ料理は「重さ」を分散</h2></div><div class="num">13</div></div>
+<div class="grid3">
+<div class="card"><h3>Restaurant Taverne｜18:00</h3><div class="menuitem"><b>Alpine cheese fondue</b><span>スイス名物・主役</span></div><div class="menuitem"><b>サラダ or pickled vegetables</b><span>酸味・さっぱり</span></div><div class="menuitem"><b>Rösti系を追加するなら少量</b><span>炭水化物の重複に注意</span></div><div class="note">→ 3人ならフォンデュを中心に、さっぱり系を必ず1品。ラクレットまで同時にフルサイズにするとかなり重い。</div></div>
+<div class="card"><h3>「名物を全部」作戦</h3><div class="menuitem"><b>フォンデュ</b><span>まず確保</span></div><div class="menuitem"><b>ラクレット</b><span>別日・別食で食べるのも◎</span></div><div class="menuitem"><b>Rösti</b><span>3人でシェアなら少量</span></div><div class="note">→ 今回はTaverneでフォンデュを主役にし、ラクレットは「当日の体調・量」を見て追加するのがバランス良い。</div></div>
+<div class="card"><h3>翌日｜Jungfraujoch</h3><div class="menuitem"><b>スーパーのパン</b><span>軽い朝・昼食</span></div><div class="menuitem"><b>チーズ・ハム・果物</b><span>山でピクニック</span></div><div class="menuitem"><b>水・飲み物</b><span>高所での水分補給</span></div><div class="note">→ 前夜に買っておき、山頂レストランを避けて食費を節約。</div></div></div>
+<div class="card" style="margin-top:14px"><h3>🍷 スイスの食べ方メモ</h3><p>チーズフォンデュは白ワインを使うタイプが基本。Taverneの現行メニューではAlpine cheese fondueにVacherin・Alpine cheese・Gruyère・Racletteを使用。付け合わせのピクルス類を入れると、濃厚さをリセットしやすい。</p></div>
+<div class="card" style="margin-top:10px"><h3>🏨 宿泊｜Hotel Central Continental Interlaken</h3><p>8/25・8/26の2泊。Interlaken Westから徒歩圏を活用して荷物・買い出しを楽にする。</p></div>
+<div class="footer"><span>メニューは2026年確認情報を参考にした候補｜2027年は変更の可能性あり</span><span>3人でシェア前提</span></div></section><section class="slide">
+<div class="titlebar"><div><div class="kicker">JUNGFRAUJOCH</div><h2>DAY 6｜個人手配でアルプスを一周</h2></div><div class="num">14</div></div>
+<div class="grid2">
+<div><div class="illus-map"><svg aria-label="ユングフラウヨッホ個人手配ルートのイラスト地図" role="img" viewbox="0 0 760 500">
+<rect fill="#eaf1e9" height="500" width="760"></rect>
+<path class="water" d="M0 85 Q130 50 260 100 T520 85 T760 120 L760 175 Q600 140 480 175 T220 165 T0 195Z"></path>
+<polygon fill="#9eb9aa" points="0,500 130,270 260,500"></polygon><polygon fill="#769b8b" points="140,500 330,120 510,500"></polygon><polygon fill="#a6bfaf" points="380,500 600,170 760,500"></polygon>
+<path class="route" d="M70 390 L190 315 L300 245 L425 175 L520 300 L635 360 L700 410"></path>
+<circle class="pin" cx="70" cy="390" r="10"></circle><text class="place" x="85" y="395">Interlaken West</text>
+<circle class="pin" cx="190" cy="315" r="10"></circle><text class="place" x="205" y="310">Grindelwald</text>
+<circle class="pin" cx="300" cy="245" r="10"></circle><text class="place" x="315" y="240">Jungfraujoch</text>
+<circle class="pin" cx="425" cy="175" r="10"></circle><text class="place" x="440" y="170">Sphinx / Plateau</text>
+<circle class="pin" cx="520" cy="300" r="10"></circle><text class="place" x="535" y="295">Kleine Scheidegg</text>
+<circle class="pin" cx="635" cy="360" r="10"></circle><text class="place" x="650" y="355">Lauterbrunnen</text>
+<circle class="pin" cx="700" cy="410" r="10"></circle><text class="place" x="540" y="430">Interlakenへ戻る</text>
+<text class="map-title" x="245" y="55">DAY 6｜アルプスを鉄道で一周</text>
+<text class="minor" x="285" y="115">個人手配｜ツアーではなく自分たちで移動</text>
+<text class="note" x="250" y="465">13:30 Kleine Scheideggで持参ランチ → 18:30 Da Rafmi</text>
+</svg></div>
+<div class="card" style="margin-top:10px"><h3>🚆 ルート</h3><p class="routeLine"><span>Interlaken West</span> → Grindelwald → <span>Jungfraujoch</span> → Kleine Scheidegg → <span>Lauterbrunnen</span> → Interlaken</p></div>
+<div class="card" style="margin-top:10px"><h3>08:30〜10:00｜Grindelwald</h3><p>村を散策。パン＋コーヒー程度の軽食候補。</p></div>
+<div class="card" style="margin-top:10px"><h3>11:00〜13:00｜Jungfraujoch</h3><p>スフィンクス展望台／Ice Palace／Plateau。</p></div>
+<div class="card" style="margin-top:10px"><h3>13:30｜Kleine Scheidegg</h3><p>持参した昼食を山を眺めながらピクニック。レストラン昼食より節約。</p></div>
+<div class="card" style="margin-top:10px"><h3>14:00〜｜Lauterbrunnen</h3><p>Staubbach Fallsを眺める。16:30〜17:00 Interlakenへ戻る。</p></div>
+</div>
+<div class="card"><div class="card transport-strip"><h3>🚆 移動ルート</h3><p>🚆 交通｜07:00ホテル発 → Interlaken West → 🚆 Grindelwald → 山岳鉄道でJungfraujoch → 🚆 Kleine Scheidegg → 🚆 Lauterbrunnen → 🚆 Interlaken → Da Rafmi → スーパー → ホテル。昼食はKleine Scheideggで持参ピクニック。</p></div>
+<h3>なぜツアーではなく個人？</h3>
+<div class="role"><div class="avatar">🇯🇵</div><div><b>日本語ツアーにこだわらない</b><p class="small">日本語ツアーの選択肢が限られるため、今回は個人手配を採用。</p></div></div>
+<div class="role" style="margin-top:12px"><div class="avatar">🚆</div><div><b>移動を自分たちで組める</b><p class="small">昼食・滞在時間を自由に調整できる。</p></div></div>
+<div class="role" style="margin-top:12px"><div class="avatar">🥪</div><div><b>スーパー飯で節約</b><p class="small">前日に購入して山へ持参。</p></div></div>
+<div class="card" style="margin-top:10px"><h3>18:30｜Trattoria Da Rafmi 🍝</h3><p><b>アルプス一周の締め。</b> チーズ料理続きにならないよう、パスタ・リゾット・サラダなどから3人でシェアする方向で調整。</p><p class="small">16:30〜17:00 Interlakenへ戻る → 18:30夕食 → スーパーで翌朝食 → 21:00ホテル。</p></div><div class="tip" style="margin-top:14px"><b>重要：</b>実際の列車時刻・乗車券・Jungfrau Travel Pass等の適用範囲は予約確定時に公式情報で確認。</div>
+<div class="card" style="margin-top:10px"><h3>🍽️ Da Rafmiで狙う</h3><p><b>Antipasto ×1</b>＋<b>ポルチーニのTagliatelle</b>＋<b>Risotto alla milanese</b>を3人でシェア、が候補。昼のスーパー飯・山の景色のあとに、温かいイタリア料理で締める。</p><p class="small">現行メニューにはポルチーニのTagliatelle、サフランRisotto、海鮮Spaghettiなど。チーズ系を連続させないのが今回の狙い。</p></div></div>
+</div>
+<div class="card hotel-card" style="margin-top:10px"><h3>🏨 宿泊｜Hotel Central Continental Interlaken</h3><p>2泊目。Jungfraujochから戻った後、21:00頃ホテル到着予定。</p></div></section>
+<section class="slide">
+<div class="titlebar"><div><div class="kicker">FRANKFURT</div><h2>DAY 7｜最後は旧市街とマイン川</h2></div><div class="num">15</div></div>
+<div class="grid2">
+<div class="illus-map frankfurt-map-with-illustration"><svg aria-label="フランクフルト最終日のイラスト地図" role="img" viewbox="0 0 760 500">
+<rect fill="#f4f0df" height="500" width="760"></rect>
+<path class="water" d="M0 300 Q160 245 300 300 T600 285 T760 310 L760 400 Q600 360 460 395 T160 385 T0 420Z"></path>
+<path class="block" d="M90 85 L290 55 L420 150 L350 255 L130 230Z"></path>
+<path class="park" d="M470 50 Q640 30 735 110 L720 205 Q600 175 500 225 Q450 160 470 50Z"></path>
+<path class="route" d="M100 150 L255 205 L340 260 L460 315 L650 175"></path>
+<circle class="pin" cx="100" cy="150" r="10"></circle><text class="place" x="115" y="155">Frankfurt Hbf</text>
+<circle class="pin" cx="255" cy="205" r="10"></circle><text class="place" x="270" y="200">Hühnermarkt</text>
+<circle class="pin" cx="340" cy="260" r="10"></circle><text class="place" x="355" y="255">Römerberg</text>
+<circle class="pin" cx="460" cy="315" r="10"></circle><text class="place" x="475" y="310">Eiserner Steg</text>
+<circle class="pin" cx="650" cy="175" r="10"></circle><text class="place" x="500" y="165">Frankfurt Airport</text>
+<text class="map-title" x="235" y="55">DAY 7｜旧市街 → マイン川 → 空港</text>
+<text class="minor" x="55" y="345">Main</text><text class="minor" x="530" y="360">最後のドイツ観光</text>
+<text class="note" x="455" y="465">15:30〜空港｜20:10 フランクフルト発</text>
+</svg><img class="frankfurt-added-illustration" src="images/image_08.jpg" alt="フランクフルトの観光地・名物料理・お土産イラスト"></div>
+<div><div class="card transport-strip"><h3>🚆 移動ルート</h3><p>🚆 交通｜06:10ホテルチェックアウト → 06:30 Interlaken発 → 🚆 11:30 Frankfurt Hbf着 → コインロッカー → 旧市街は徒歩 → 15:30頃 Frankfurt Hbf → 🚆 Frankfurt Airport → 20:10 Frankfurt発 → 8/28 16:15成田着 → 18:30自宅</p></div>
+<div class="card"><h3>11:30｜Frankfurt Hbf</h3><p>コインロッカーへ荷物を預ける。</p></div>
+<div class="card" style="margin-top:10px"><h3>12:30｜Wirtshaus am Hühnermarkt</h3><p>最後のドイツ料理。<b>Frankfurter Grüne Soße／Frankfurter Schnitzel／Frankfurter Würstchen／Handkäse</b>から、これまで食べていないものを優先。</p></div>
+<div class="card" style="margin-top:10px"><h3>14:00〜15:30｜旧市街</h3><p>Römerberg → Frankfurt Cathedral → Eiserner Steg → Main River。</p></div>
+<div class="card" style="margin-top:10px"><h3>15:30〜16:00｜空港</h3><p>20:10 Frankfurt発。余裕を持って空港へ。</p></div>
+</div>
+</div>
+<div class="card hotel-card" style="margin-top:10px"><h3>✈️ 宿泊｜機内泊</h3><p>ホテルには戻らず、20:10 Frankfurt発の便で日本へ。8/28 16:15成田着予定。</p></div></section>
+<section class="slide"><div class="titlebar"><div><div class="kicker">FRANKFURT FOOD</div><h2>最後のドイツ料理｜3人で「フランクフルト」を食べ切る</h2></div><div class="num">16</div></div>
+<div class="grid3">
+<div class="card"><h3>Wirtshaus am Hühnermarkt｜12:30</h3><div class="menuitem"><b>Frankfurter Schnitzel</b><span>名物・肉＋Grüne Soße</span></div><div class="menuitem"><b>Handkäs' mit Musik</b><span>酸味・チーズ系の小皿</span></div><div class="menuitem"><b>Apfelwein</b><span>フランクフルトらしい飲み物</span></div><div class="note">→ 3人ならSchnitzelを1〜2皿シェア＋Handkäs。これまでのHaxe/Knödel中心の食事との差が出る。</div></div>
+<div class="card"><h3>もう1品選ぶなら</h3><div class="menuitem"><b>Wirtshaus Wurstplatte</b><span>Bratwurst＋Rindswurst</span></div><div class="menuitem"><b>または水分多めのサラダ</b><span>軽い口直し</span></div><div class="note">→ 「ソーセージも食べたい」なら3人で1皿をシェア。肉料理を3皿にすると帰国前には重すぎる。</div></div>
+<div class="card"><h3>フランクフルト名物を整理</h3><div class="menuitem"><b>Grüne Soße</b><span>7種のハーブを使う冷たいソース</span></div><div class="menuitem"><b>Handkäse</b><span>小さな酸味のあるチーズ</span></div><div class="menuitem"><b>Apfelwein</b><span>ヘッセンのりんご酒</span></div><div class="note">→ ミュンヘンのバイエルン料理とは方向性が違うので、旅の最後に「地域差」を実感できる。</div></div></div>
+<div class="card" style="margin-top:14px; text-align:center; overflow:hidden;">
+<img src="images/image_09.jpg" alt="フランクフルトのレストランで頼むべき料理のイラスト" style="display:block; width:100%; height:auto; max-height:430px; object-fit:contain; margin:0 auto;">
+</div>
+<div class="card" style="margin-top:14px"><h3>🍽️ おすすめ注文セット（3人）</h3><p><b>Frankfurter Schnitzel × 1〜2</b> ＋ <b>Handkäs' mit Musik × 1</b> ＋ <b>Wurstplatte × 1（食欲次第）</b> ＋ <b>Apfelwein</b>。<br/>→ <b>こってりしたSchnitzelに、酸味のあるGrüne Soße・Handkäsを組み合わせる</b>ことで、ドイツ料理続きでも重さを調整。</p></div>
+<div class="card" style="margin-top:10px"><h3>✈️ 宿泊｜機内泊</h3><p>8/27はホテル泊なし。15:30〜16:00に空港へ移動し、20:10 Frankfurt発 → 翌8/28 16:15成田着。</p></div>
+<div class="footer"><span>現行メニュー・公式情報を参考にした候補｜2027年は変更の可能性あり</span><span>3人でシェア前提</span></div></section><section class="slide">
+<div class="titlebar"><div><div class="kicker">FOOD PLAN</div><h2>7日間の「食べるもの」設計</h2></div><div class="num">17</div></div>
+<div class="grid3">
+<div class="card"><h3>🇩🇪 Düsseldorf</h3><p><b>Altbier</b>／Roggenbrot／チーズ・ハム／ソーセージ／Rheinischer系惣菜をスーパーで。</p><div class="note">→ レストラン続きにならないよう「地元スーパー」を食文化として楽しむ。</div></div>
+<div class="card"><h3>🇩🇪 München</h3><p><b>Weißwurst・Brezn・Obatzda・Haxen・Knödel・Helles</b>を分散。</p><div class="note">→ Augustiner＝王道、Wirtshaus＝Knödel中心、Hofbräu＝ビール中心。</div></div>
+<div class="card"><h3>🇨🇭 Interlaken</h3><p><b>Fondue・Raclette・Rösti</b>などスイスらしいものを優先。</p><div class="note">→ チーズが重なるので、3人シェア＋サラダ・パン・軽い料理で調整。</div></div>
+</div>
+<div class="grid2" style="margin-top:12px">
+<div class="card"><h3>🇩🇪 Frankfurt</h3><p><b>Grüne Soße・Frankfurter Schnitzel・Würstchen・Handkäse</b>から未食を優先。アップルワインは飲める人だけ。</p></div>
+<div class="card"><h3>🍽️ 飽きないためのルール</h3><p>「肉→チーズ→魚/野菜→軽食」のように、<b>味・食材・油分・食感</b>を散らす。3人なので一人1皿ではなく、複数品をシェアして種類を増やす。</p></div>
+</div>
+<div class="card" style="margin-top:14px"><h3>🍽️ 店別おすすめ（3人シェア）</h3><p><b>Augustiner-Keller：</b>Obatzda＋Brezn＋Schnitzelを少量。<b>Wirtshaus in der Au：</b>Knödel＋ロースト＋サラダ。<b>Servus Heidi：</b>Knödel Trio＋魚料理＋野菜。<b>Taverne：</b>チーズフォンデュ＋酸味のある副菜。<b>Da Rafmi：</b>ポルチーニパスタ＋サフランRisotto＋Antipasto。<b>Hühnermarkt：</b>Frankfurter Schnitzel＋Handkäs＋Apfelwein。</p><p class="small">「名物を食べる」ことと「同じ味を繰り返さない」ことを両立するため、肉・チーズ・揚げ物・野菜・魚・酸味を旅行全体で分散。</p></div></section>
+<section class="slide">
+<div class="titlebar"><div><div class="kicker">RAIL &amp; BUS</div><h2>交通ルート｜予約確定後に列車番号を追加</h2></div><div class="num">18</div></div>
+<div class="grid2">
+<div class="card">
+<h3>ドイツ</h3>
+<div class="menuitem"><b>8/21 Frankfurt Airport → Düsseldorf</b><span>空港鉄道＋長距離列車等を確認</span></div>
+<div class="menuitem"><b>8/23 Düsseldorf → München</b><span>ICE中心</span></div>
+<div class="menuitem"><b>8/24 München → Hohenschwangau</b><span>FlixBus候補</span></div>
+<div class="menuitem"><b>8/24 Hohenschwangau → München</b><span>FlixBus 16:15予定</span></div>
+<div class="menuitem"><b>8/27 Frankfurt Hbf → Airport</b><span>市内交通</span></div>
+</div>
+<div class="card">
+<h3>スイス</h3>
+<div class="menuitem"><b>8/25 München → Zürich Flughafen → Interlaken West</b><span>長距離列車</span></div>
+<div class="menuitem"><b>8/26 Interlaken West → Grindelwald</b><span>山岳鉄道</span></div>
+<div class="menuitem"><b>8/26 Grindelwald → Jungfraujoch</b><span>山岳鉄道</span></div>
+<div class="menuitem"><b>8/26 Jungfraujoch → Kleine Scheidegg</b><span>山岳鉄道</span></div>
+<div class="menuitem"><b>8/26 Kleine Scheidegg → Lauterbrunnen → Interlaken</b><span>山岳鉄道</span></div>
+<div class="menuitem"><b>8/27 Interlaken → Frankfurt Hbf</b><span>長距離列車</span></div>
+</div>
+</div>
+<div class="warn" style="margin-top:12px">「予約予定」と「予約済み」は別物。予約後に列車番号・乗車駅・発車時刻・乗換駅・予約番号を追加する。</div>
+</section>
+<section class="slide">
+<div class="titlebar"><div><div class="kicker">MANNERS</div><h2>日本人が戸惑いやすいドイツのマナー</h2></div><div class="num">19</div></div>
+<div class="grid3">
+<div class="card"><h3>👃 鼻をすする</h3><p>人前で何度もズズッとすするより、<b>鼻をかむ</b>ほうが自然。</p></div>
+<div class="card"><h3>☝️ 店員を呼ぶ</h3><p>大声で「すみませーん！」と呼ぶより、<b>目線＋軽い合図</b>を意識。</p></div>
+<div class="card"><h3>🚦 信号</h3><p>車が来なくても、歩行者信号が赤なら渡らない。特に子どもがいる場所では注意。</p></div>
+<div class="card"><h3>🚲 自転車レーン</h3><p>歩道と見た目が似ていても、自転車レーンは歩かない。</p></div>
+<div class="card"><h3>💶 チップ</h3><p>レストラン等ではチップ文化がある。会計時に合計金額を伝える方式も。</p></div>
+<div class="card"><h3>🗣️ 呼び方</h3><p>初対面・店員などには基本的に丁寧な<b>Sie</b>を使う。親しくなるとDuへ。</p></div>
+<div class="card"><h3>🚆 電車</h3><p>降りる人を先に。荷物で通路を塞がない。車内では周囲への配慮を。</p></div>
+<div class="card"><h3>🕐 時間</h3><p>予約・集合時間は余裕を持つ。特に城・列車は遅れないことを最優先。</p></div>
+<div class="card"><h3>🗑️ ゴミ・分別</h3><p>ゴミ箱・分別表示を確認。スーパーのデポジット容器も捨てずに確認。</p></div>
+</div>
+<div class="small" style="margin-top:10px">※「絶対禁止」ではなく、現地で自然に振る舞うための目安。施設・地域・場面で異なる場合あり。</div>
+</section>
+<section class="slide">
+<div class="titlebar"><div><div class="kicker">FOR MOM &amp; ON-CHAN</div><h2>同行者に伝えておきたいこと</h2></div><div class="num">20</div></div>
+<div class="grid2">
+<div>
+<div class="card"><h3>① ミュンヘンの美術館</h3><p>今回は<b>行かない</b>。時間の都合上、街歩き・食事・市場・教会などを優先。</p></div>
+<div class="card" style="margin-top:10px"><h3>② 朝食・一部夕食はスーパー</h3><p>移動が多いので、朝食はパン・ヨーグルト・フルーツ等で済ませる日あり。1日目夕食もスーパー。Jungfraujoch昼食もスーパー購入でピクニック。</p></div>
+<div class="card" style="margin-top:10px"><h3>③ Jungfraujochは個人手配</h3><p>日本語ツアーに頼らず、自分たちで鉄道移動。自由度が高く、昼食も好きな場所で取れる。</p></div>
+</div>
+<div>
+<div class="card">
+<h3>④ 役割分担</h3>
+<div class="role"><div class="avatar">🧭</div><div><b>俺｜旅行総監督</b><p class="small">全体の旅程・予約・移動を担当。基本の案内役。</p></div></div>
+<div class="role" style="margin-top:14px"><div class="avatar">👩</div><div><b>母ちゃん｜現地ガイド研修生</b><p class="small">ウンチクを調べる係。気になったら即チャッピー。</p></div></div>
+<div class="role" style="margin-top:14px"><div class="avatar">👨</div><div><b>おんちゃん｜現地ガイド研修生</b><p class="small">建物・歴史・料理・次の行き方をチャッピーに聞きまくる。</p></div></div>
+<div class="note" style="margin-top:15px"><b>📱 eSIM無制限という最強装備。</b><br/>「チャッピー、この建物なに？」「次どっち？」「何頼めばいい？」全部聞いてOK。</div>
+</div>
+</div>
+</div>
+</section>
+<section class="slide">
+<div class="titlebar"><div><div class="kicker">30-SECOND TRIVIA</div><h2>おんちゃん＆母ちゃん向け「へぇ〜」集</h2></div><div class="num">21</div></div>
+<div class="grid3">
+<div class="card"><h3>🏛️ Marienplatz</h3><p>ミュンヘン旧市街の中心。新市庁舎のグロッケンシュピールでは歴史的場面が動く仕掛けを見ることができる。</p></div>
+<div class="card"><h3>⛪ Asamkirche</h3><p>アザム兄弟による18世紀の後期バロック／ロココ建築。小さな空間に装飾を詰め込んだ「盛り盛り」教会。</p></div>
+<div class="card"><h3>🍺 Hofbräuhaus</h3><p>ミュンヘンを象徴するビアホール。ここでは食事よりも、樽生ビールと雰囲気を体験する時間に。</p></div>
+<div class="card"><h3>🏰 Neuschwanstein</h3><p>19世紀にルートヴィヒ2世が建設を進めた城。中世の城をそのまま残したものではなく、ロマン主義的な「理想の城」の性格が強い。</p></div>
+<div class="card"><h3>🏔️ Jungfraujoch</h3><p>「Top of Europe」の呼び名で知られる高地。展望だけでなく、氷河・雪・鉄道そのものが見どころ。</p></div>
+<div class="card"><h3>🌉 Eiserner Steg</h3><p>マイン川を渡る歩行者用の鉄橋。旧市街と川・金融街の景色を一度に見渡せる。</p></div>
+</div>
+</section>
+<section class="slide">
+<div class="titlebar"><div><div class="kicker">BOOKING SCHEDULE</div><h2>予約スケジュール｜いつ何を確認する？</h2></div><div class="num">23</div></div>
+<div class="card" style="padding:12px">
+<table class="table" style="font-size:10px">
+<thead><tr><th style="width:19%">時期</th><th style="width:25%">予約・確認するもの</th><th>対応</th></tr></thead>
+<tbody>
+<tr><td><b>今〜2026年秋</b></td><td>🏨 3ホテル</td><td>Ruby Leni／Eurostars Book Hotel／Central Continentalの料金・3人1室・キャンセル条件を確認</td></tr>
+<tr><td><b>今〜2027年2月頃</b></td><td>🚆 長距離鉄道</td><td>デュッセルドルフ → ミュンヘンを確認。早割が出たら予約</td></tr>
+<tr><td><b>2026年12月〜2027年2月</b></td><td>🚆 国際鉄道</td><td>ミュンヘン → インターラーケン、インターラーケン → フランクフルトを確認</td></tr>
+<tr><td><b>2027年2月下旬頃〜</b></td><td>🚆 スイス国内鉄道</td><td>インターラーケン → グリンデルヴァルトなどを確認。基本的に予約を急ぐ必要なし</td></tr>
+<tr><td><b>2027年春頃〜</b></td><td>🏔️ ユングフラウヨッホ</td><td>8/26のチケット・座席予約の販売状況をチェック</td></tr>
+<tr><td><b>2027年春頃〜</b></td><td>🚌 FlixBus</td><td>ミュンヘン ↔ ノイシュヴァンシュタイン方面の販売状況をチェック</td></tr>
+<tr><td><b>2027年5〜6月頃〜</b></td><td>🍽️ レストラン</td><td>Augustiner-Keller／Wirtshaus in der Au／Servus Heidi／Taverne／Da Rafmi／Wirtshaus am Hühnermarkt</td></tr>
+<tr><td><b>2027年6月頃〜</b></td><td>🏰 ノイシュヴァンシュタイン城</td><td><b>最重要。</b> 8/24・14時前後の内部見学枠を重点チェック</td></tr>
+<tr><td><b>2027年6〜7月</b></td><td>🔍 全予約確認</td><td>ホテル・鉄道・バス・城・山岳交通・レストランを一通り確認</td></tr>
+<tr><td><b>出発直前</b></td><td>✅ 最終確認</td><td>営業時間・運休・列車時刻・予約メール・天気などを確認</td></tr>
+</tbody></table></div>
+<div class="grid2" style="margin-top:10px">
+<div class="card"><h3>⭐ 特に重要な5つ</h3><p><b>① ホテル → ② 長距離鉄道 → ③ ユングフラウヨッホ → ④ レストラン → ⑤ ノイシュヴァンシュタイン城</b></p></div>
+<div class="card"><h3>🏰 販売開始日が不明なもの</h3><p class="small">城：2027年6月頃〜／ユングフラウヨッホ：2027年春頃〜／FlixBus：2027年春頃〜／レストラン：2027年5〜6月頃〜</p></div>
+</div>
+<div class="note" style="margin-top:10px"><b>ポイント：</b>「予約開始日」と「チェック開始日」を分ける。販売開始日が分からなくても、その時期になったら販売状況を確認する。</div>
+</section>
+<section class="slide">
+<div class="titlebar"><div><div class="kicker">BUDGET</div><h2>予算の根拠｜航空券を除いて約96.9万円</h2></div><div class="num">24</div></div>
+<div class="grid2">
+<div class="card" style="padding:12px">
+<table class="table" style="font-size:10px">
+<thead><tr><th>費目・内訳</th><th>計算</th><th style="text-align:right">3人合計</th></tr></thead><tbody>
+<tr><td>🏨 ホテル｜デュッセルドルフ 2泊</td><td>約¥35,000 × 2泊</td><td style="text-align:right">¥70,000</td></tr>
+<tr><td>🏨 ホテル｜ミュンヘン 2泊</td><td>約¥45,000 × 2泊</td><td style="text-align:right">¥90,000</td></tr>
+<tr><td>🏨 ホテル｜インターラーケン 2泊</td><td>約¥55,000 × 2泊</td><td style="text-align:right">¥110,000</td></tr>
+<tr><td colspan="2"><b>ホテル計｜6泊</b></td><td style="text-align:right"><b>¥270,000</b></td></tr>
+<tr><td>🚆 交通｜長距離・山岳・市内等</td><td>5区分＋市内交通等</td><td style="text-align:right">約¥349,000</td></tr>
+<tr><td>🍽️ 食費｜レストラン6回程度</td><td>3人 × 約¥6,000〜10,000/回</td><td style="text-align:right">約¥150,000</td></tr>
+<tr><td>🛒 食費｜スーパー・朝食・昼食・晩酌</td><td>3人・7日</td><td style="text-align:right">約¥50,000</td></tr>
+<tr><td colspan="2"><b>食費計</b></td><td style="text-align:right"><b>約¥200,000</b></td></tr>
+</tbody></table></div>
+<div class="card" style="padding:12px">
+<table class="table" style="font-size:10px">
+<thead><tr><th>費目・内訳</th><th>計算</th><th style="text-align:right">3人合計</th></tr></thead><tbody>
+<tr><td>🏰 ノイシュヴァンシュタイン城</td><td>3人分</td><td style="text-align:right">約¥15,000</td></tr>
+<tr><td>🏔️ ユングフラウヨッホ</td><td>3人分</td><td style="text-align:right">約¥15,000</td></tr>
+<tr><td>🏔️ ハーダークルム等</td><td>3人分</td><td style="text-align:right">約¥10,000</td></tr>
+<tr><td><b>観光計</b></td><td></td><td style="text-align:right"><b>約¥40,000</b></td></tr>
+<tr><td>📱 通信｜eSIM無制限</td><td>3人分</td><td style="text-align:right">約¥15,000</td></tr>
+<tr><td>🛍️ お土産｜ドイツ・スイス</td><td>3人分</td><td style="text-align:right">約¥60,000</td></tr>
+<tr><td>💰 その他｜ロッカー・タクシー・予備費等</td><td></td><td style="text-align:right">約¥35,000</td></tr>
+<tr><td colspan="2"><b>合計｜航空券除く</b></td><td style="text-align:right"><b>約¥969,000</b></td></tr>
+</tbody></table></div>
+</div>
+<div class="note" style="margin-top:12px"><b>前提：</b>2026年9月時点の概算。実際の予約価格ではない。特にホテル・鉄道・ユングフラウヨッホ・ノイシュヴァンシュタイン城・レストランは、予約時に実額へ更新する。</div>
+</section>
+<section class="slide">
+<div class="titlebar"><div><div class="kicker">TRANSPORT BUDGET</div><h2>交通費の詳細見積もり｜3人合計 約36.9万円</h2></div><div class="num">25</div></div>
+<div class="grid2">
+<div class="card" style="padding:12px">
+<table class="table" style="font-size:10px">
+<thead><tr><th>区間・項目</th><th>3人分の概算</th><th>備考</th></tr></thead><tbody>
+<tr><td>✈️ Frankfurt Airport → Düsseldorf</td><td style="text-align:right">¥25,000</td><td>到着後の鉄道移動</td></tr>
+<tr><td>🚆 Düsseldorf → München</td><td style="text-align:right">¥45,000</td><td>ICE・早割想定</td></tr>
+<tr><td>🚌 München ↔ Hohenschwangau</td><td style="text-align:right">¥24,000</td><td>往復・3人</td></tr>
+<tr><td>🚌 Hohenschwangau周辺</td><td style="text-align:right">¥6,000</td><td>シャトル等の予備</td></tr>
+<tr><td>🚆 München → Zürich → Interlaken</td><td style="text-align:right">¥60,000</td><td>国際長距離移動</td></tr>
+<tr><td>🚆 Interlaken周辺</td><td style="text-align:right">¥20,000</td><td>Interlaken Ost/West・Grindelwald等</td></tr>
+<tr><td>🚞 Jungfraujoch往復</td><td style="text-align:right">¥75,000</td><td>主要山岳交通</td></tr>
+</tbody></table></div>
+<div class="card" style="padding:12px">
+<table class="table" style="font-size:10px">
+<thead><tr><th>区間・項目</th><th>3人分の概算</th><th>備考</th></tr></thead><tbody>
+<tr><td>🚞 Harder Kulm等</td><td style="text-align:right">¥10,000</td><td>行く場合の予算</td></tr>
+<tr><td>🚆 Interlaken → Frankfurt</td><td style="text-align:right">¥60,000</td><td>長距離移動</td></tr>
+<tr><td>🚇 ドイツ・スイス市内交通</td><td style="text-align:right">¥15,000</td><td>地下鉄・トラム・バス等</td></tr>
+<tr><td>🚆 Frankfurt市内・空港アクセス</td><td style="text-align:right">¥9,000</td><td>帰国時等</td></tr>
+<tr><td>💰 交通予備費</td><td style="text-align:right">¥20,000</td><td>乗車変更・追加移動等</td></tr>
+<tr><td colspan="2"><b>交通費 合計</b></td><td style="text-align:right"><b>約¥369,000</b></td></tr>
+</tbody></table></div>
+</div>
+<div class="note" style="margin-top:12px"><b>予算上の整理：</b>交通費は「鉄道・バス・山岳交通・市内交通」をまとめた予算。ノイシュヴァンシュタイン城などの<strong>入場料は観光費として別計上</strong>。2026年9月時点の概算で、予約時に実額へ更新する。</div>
+</section>
+<section class="slide dark">
+<div class="titlebar"><div><div class="kicker">FINAL CHECK</div><h2>予約が確定したら、ここを更新する</h2></div><div class="num">22</div></div>
+<div class="grid3">
+<div class="card"><h3>🚆 交通</h3><p>列車番号／発着時刻／乗換／座席／予約番号／駅までの徒歩ルート</p></div>
+<div class="card"><h3>🏨 ホテル</h3><p>チェックイン／アウト／3人1室／朝食／冷蔵庫／荷物預け</p></div>
+<div class="card"><h3>🍽️ 店</h3><p>予約時刻／人気メニュー／3人での注文量／予算／チップ</p></div>
+<div class="card"><h3>🏰 観光</h3><p>城の入場時刻／シャトル／Jungfrauの乗車時刻／当日の営業時間</p></div>
+<div class="card"><h3>💰 お金</h3><p>実際の支払額に更新し、3人合計と1人あたりを再計算。</p></div>
+<div class="card"><h3>📱 現地運用</h3><p>eSIM／ChatGPT／オフライン用スクショ／緊急連絡先</p></div>
+</div>
+<div class="note" style="margin-top:16px;background:#f5ead7;color:#3b3428;border-left-color:#c28b39"><b>完成形：</b>「旅行前に読む資料」ではなく、旅行中にそのまま開いて使える3人用の旅程表にする。</div>
+<div class="footer"><span>Germany × Switzerland 2027</span><span>俺 × 母ちゃん × おんちゃん</span></div>
+</section>
+<section class="slide dark end-v5"><div class="end-inner"><div class="kicker" style="letter-spacing:.18em;opacity:.75">GERMANY × SWITZERLAND · 2027</div><h1>Gute Reise.<br/><span style="font-weight:400">楽しい旅を。</span></h1><div class="route">🇩🇪 Düsseldorf → 🇩🇪 München → 🏰 Neuschwanstein → 🇨🇭 Interlaken → 🏔️ Jungfraujoch → 🇩🇪 Frankfurt → 🇯🇵</div><div style="margin-top:24px;font-weight:700">俺 × 母ちゃん × おんちゃん</div><div class="small">旅程・食・鉄道・ウンチクを楽しむ7日間。<br/>予約が確定したら、時刻・料金・注文メニューを更新。</div></div></section></div>
+<div class="navhint">← → / 横スワイプ</div>
+<script>
+const deck=document.getElementById('deck');
+let locked=false;
+function move(dir){
+ if(locked)return; locked=true;
+ deck.scrollBy({left:dir*window.innerWidth,behavior:'smooth'});
+ setTimeout(()=>locked=false,500);
+}
+window.addEventListener('keydown',e=>{if(e.key==='ArrowRight')move(1);if(e.key==='ArrowLeft')move(-1)});
+let sx=null;
+deck.addEventListener('touchstart',e=>{sx=e.touches[0].clientX},{passive:true});
+deck.addEventListener('touchend',e=>{if(sx===null)return;let dx=e.changedTouches[0].clientX-sx;sx=null;if(Math.abs(dx)>55)move(dx<0?1:-1)},{passive:true});
+</script>
+</body>
+</html>
